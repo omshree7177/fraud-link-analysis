@@ -1,0 +1,21 @@
+y
+git init
+git add .
+git commit -m "Initial commit"
+git config --global user.name "Your Name"
+git config --global user.email "omshreesorathia77@gmail.com
+
+
+git remote add origin https://github.com/yourusername/graph-ml-project.git
+git branch -M main
+git push -u origin main
+# v0 runtime files (should only exist in preview, not in git)
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+
+# Common ignores
+node_modules/
+.next/
+.env*.local
+.DS_Store
