@@ -1,6 +1,6 @@
-# Graph ML Suite - Fraud Ring Detection & Social Influence Modeling
+# Fraud Link Analysis using Graph Machine Learning
 
-A production-ready full-stack application demonstrating advanced Graph Machine Learning techniques for portfolio and interview success. Built with Next.js, React, and Python, featuring interactive visualizations and real-time analysis.
+A modern web-based application for detecting and analyzing fraudulent relationships using Graph Machine Learning techniques. This project visualizes suspicious connections between entities and helps uncover hidden fraud patterns using graph-based insights.
 
 ## Overview
 
@@ -11,8 +11,6 @@ This project showcases rare Graph ML expertise using:
 - **Community Detection** - Louvain algorithm for identifying clusters
 - **Link Prediction** - Embedding-based relationship forecasting
 
-### Two Real-World Use Cases
-
 #### 1. Fraud Ring Detection
 Analyzes transaction networks to identify coordinated fraud patterns. The system detects dense communities that indicate organized fraud rings and predicts suspicious hidden relationships.
 
@@ -20,14 +18,6 @@ Analyzes transaction networks to identify coordinated fraud patterns. The system
 - Identify tightly connected fraud rings (communities)
 - Detect anomalous nodes with unusual connection patterns
 - Predict hidden relationships that indicate coordination
-
-#### 2. Social Influence Modeling
-Models social networks to identify influential users and growth opportunities. The system finds key influencers, community structure, and predicts valuable new connections.
-
-**Key Insights:**
-- Identify influential nodes based on network position
-- Discover communities and interaction patterns
-- Recommend growth opportunities through link prediction
 
 ## Technology Stack
 
@@ -73,28 +63,27 @@ def predict_links():
     - Top-k results returned
 ```
 
-## Project Structure
+## System Design
+
+### Architecture Overview
 
 ```
-.
-├── app/
-│   ├── api/
-│   │   ├── analyze-fraud/route.ts    # Fraud analysis endpoint
-│   │   └── analyze-social/route.ts   # Social analysis endpoint
-│   ├── layout.tsx                     # Root layout
-│   ├── page.tsx                       # Main dashboard
-│   └── globals.css                    # Global styling
-├── components/
-│   ├── GraphCanvas.tsx                # Force-directed graph renderer
-│   ├── MetricsPanel.tsx               # Network statistics
-│   ├── InsightsPanel.tsx              # Predictions display
-│   └── ui/                            # shadcn/ui components
-├── scripts/
-│   └── ml_backend.py                  # ML algorithms
-├── package.json
-└── tsconfig.json
+┌─────────────────────────────────────────┐
+│         FRONTEND (React + Next.js)      │
+├─────────────────────────────────────────┤
+│  Landing Page │ Dashboard │ Visualization
+└────────────────────┬────────────────────┘
+                     │ HTTP
+┌────────────────────▼────────────────────┐
+│      NEXT.JS API ROUTES                 │
+│  /api/train  │  /api/score              │
+└────────────────────┬────────────────────┘
+                     │ Process
+┌────────────────────▼────────────────────┐
+│    ML PIPELINE (Python/JavaScript)      │
+│  Feature Engineering → Model Training → Scoring
+└─────────────────────────────────────────┘
 ```
-
 ## Getting Started
 
 ### Prerequisites
@@ -104,37 +93,49 @@ def predict_links():
 
 ### Installation
 
-1. **Clone & Install Dependencies**
-```bash
-git clone <repo>
-cd graph-ml-suite
-npm install  # or pnpm install
-```
+1. **Install Node.js** (if you haven't)
+   - Download from https://nodejs.org
+   - LTS version recommended
 
-2. **Install Python Dependencies**
-```bash
-pip install networkx numpy
-```
+2. **Clone and Setup**
+   ```bash
+   cd your-project-folder
+   npm install
+   ```
 
-3. **Run Development Server**
-```bash
-npm run dev
-```
+3. **Run Locally**
+   ```bash
+   npm run dev
+   ```
 
 4. **Open in Browser**
-```
-http://localhost:3000
-```
+   ```
+   http://localhost:3000
+   ```
 
 ## How It Works
 
-### Fraud Ring Detection Flow
 
-1. **Network Generation**
-   - Creates synthetic fraud network with planted communities
-   - 30-100 nodes with configurable density
-   - Intra-ring: 60% edge probability (dense coordination)
-   - Inter-ring: 10% random edges (cover-up)
+### 1. Upload & Analyze
+- Simple CSV upload with user data (names, IP addresses, phone numbers)
+- No registration, no setup, instant analysis
+- Results delivered in seconds
+
+### Step 2: ML Analysis
+Our system automatically:
+- Extracts behavioral features (IP sharing, phone reuse patterns)
+- Builds a network graph connecting related users
+- Trains a machine learning model on your specific data
+- Detects communities (fraud rings) within the network
+- Calculates individual risk scores
+- Identifies suspicious connections
+  
+### Step 3: Get Results
+Receive a comprehensive analysis showing:
+- **Risk Dashboard** - Overview of high, medium, and low-risk users
+- **Individual Scores** - Fraud probability for each user
+- **Fraud Rings** - Detected coordinated groups
+- **Recommendations** - Which accounts to investigate first
 
 2. **Node2Vec Training**
    - 5 walks per node, length 40
@@ -150,49 +151,6 @@ http://localhost:3000
    - Scores potential hidden connections
    - High-scoring links indicate possible coordination
    - Top 15 predictions shown in insights panel
-
-### Social Influence Flow
-
-1. **Network Generation**
-   - Creates social network with 5-10 influencers
-   - Influencers follow each other (70% chance)
-   - Regular users follow 1-3 influencers
-   - Small-world connections between users
-
-2. **Influence Scoring**
-   - Based on network position
-   - Weighted by follower count
-   - 0-1 influence score
-
-3. **Community Detection**
-   - Identifies social communities
-   - Shows connection patterns
-   - Reveals subgroups within network
-
-4. **Growth Opportunities**
-   - Predicts valuable new connections
-   - Recommends follower targets
-   - Suggests influencer partnerships
-
-## Key Features
-
-### Interactive Visualization
-- **Force-Directed Layout** - Physics simulation for natural positioning
-- **Community Coloring** - Visual differentiation of groups
-- **Node Sizing** - Proportional to degree (popularity)
-- **Click to Select** - Inspect individual nodes
-- **Dynamic Rendering** - Canvas-based for performance
-
-### Real-Time Analysis
-- **Configurable Network Size** - 30-100 nodes
-- **Instant Computation** - Graph algorithms run in seconds
-- **Live Updates** - Refresh analysis with new parameters
-
-### Comprehensive Metrics
-- **Network Statistics** - Nodes, edges, density, average degree
-- **Community Metrics** - Number of detected communities
-- **Influence Metrics** - Influencer count, average influence
-- **Predictive Metrics** - Suspicious/potential connection scores
 
 ## Algorithm Details
 
